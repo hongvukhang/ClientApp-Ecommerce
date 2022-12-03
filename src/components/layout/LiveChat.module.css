@@ -1,0 +1,126 @@
+.box_message {
+  position: fixed;
+  right: 20px;
+  bottom: 25px;
+}
+
+.btn_toggle {
+  position: relative;
+  width: 45px;
+  height: 45px;
+  font-size: 30px;
+  border-radius: 50%;
+  margin-top: 75px;
+  float: right;
+}
+.btn_toggle > svg {
+  position: absolute;
+  top: 5px;
+  right: 5px;
+}
+
+.liveChat {
+  width: 400px;
+  height: 500px;
+
+  border-radius: 10px;
+  margin-right: 50px;
+  background-color: white;
+  filter: drop-shadow(0 0 5px rgba(0, 0, 0, 0.4));
+  animation: box_chat 0.5s;
+}
+
+@keyframes box_chat {
+  from {
+    transform: rotate(342deg);
+    opacity: 0.5;
+  }
+  to {
+    transform: rotate(360deg);
+    opacity: 1;
+  }
+}
+
+.box_title {
+  display: flex;
+  justify-items: center;
+  justify-content: space-between;
+  padding: 15px 20px;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+}
+.box_title > h4 {
+  margin: 0;
+}
+.box_title > button {
+  border: none;
+  font-style: italic;
+  padding: 8px 10px;
+  background-color: rgb(228, 231, 234);
+  color: rgb(80 78 78);
+}
+.box_chat {
+  border-top: 1px solid rgba(0, 0, 0, 0.1);
+  display: flex;
+  align-items: center;
+  padding: 10px 15px;
+}
+.box_chat > img {
+  border-radius: 10px;
+  margin-right: 15px;
+}
+.box_chat > input {
+  height: 25px;
+  border: none;
+  font-size: 17px;
+  width: 170px;
+}
+.box_chat > button {
+  width: 27px;
+  height: 35px;
+  border: none;
+  background-color: white;
+  cursor: pointer;
+}
+.box_chat > button:last-child {
+  color: rgb(72, 176, 247);
+}
+.box_chat > button > svg {
+  font-size: 17px;
+}
+
+.hidden {
+  display: none;
+}
+.chat_content {
+  width: 75%;
+  height: 100%;
+  padding-left: 10px;
+}
+.chat_content-customer {
+  width: 100%;
+  display: flex;
+  flex-direction: row-reverse;
+  margin: 10px 0;
+}
+.chat_content-customer > span {
+  background-color: rgb(72, 176, 247);
+  color: rgba(255, 255, 255, 0.9);
+  margin: 0;
+  padding: 10px;
+  border-radius: 3px;
+  margin-left: 40px;
+}
+.chat_content-admin {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  margin: 10px 0;
+}
+.chat_content-admin > span {
+  background-color: #f5f6f7;
+  color: rgb(0 0 0 / 62%);
+  margin: 0;
+  padding: 10px;
+  border-radius: 3px;
+  margin-right: 40px;
+}

@@ -1,0 +1,143 @@
+.cart_container {
+  font-style: italic;
+  margin-top: 50px;
+}
+.cart_container > h1 {
+  font-weight: 400;
+  font-size: 27px;
+}
+.cart_content {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+
+.cart_list {
+  display: block;
+  width: 65%;
+}
+.cart_list > tbody,
+.cart_list > thead {
+  width: 100%;
+  display: block;
+}
+.cart_list-title {
+  width: 100%;
+  display: inline-table;
+  height: 50px;
+  background-color: rgb(248, 249, 250);
+}
+
+.cart_list-title > th {
+  font-weight: 500;
+  color: #000000bf;
+  width: 14%;
+}
+.cart_list-title > th:nth-child(2) {
+  width: 30%;
+}
+.cart_list-item {
+  display: inline-table;
+  width: 100%;
+  margin: 15px 0;
+  text-align: center;
+}
+.cart_list-item > td {
+  width: 14%;
+}
+.cart_list-item > td:nth-child(2) {
+  width: 30%;
+  font-weight: 500;
+}
+.cart_list-item > td:nth-child(3),
+.cart_list-item > td:nth-child(5) {
+  font-size: 14px;
+  color: #000000a3;
+  line-height: 22px;
+}
+.cart_list-item > td:nth-child(4) {
+  display: flex;
+  align-items: center;
+}
+.cart_list-item > td:nth-child(6) > button {
+  background-color: white;
+  border: none;
+  color: #0000008c;
+  font-size: 16px;
+}
+/**/
+.img {
+  width: 75%;
+}
+
+.cart_total {
+  width: 24%;
+  padding: 45px;
+  background-color: rgb(248, 249, 250);
+}
+.cart_total > h1 {
+  margin: 0;
+  font-weight: 400;
+  font-size: 25px;
+}
+.subtotal {
+  font-size: 17px;
+  font-weight: 500;
+  border-bottom: 1px solid #d0cccc;
+  padding-bottom: 10px;
+}
+.subtotal > span {
+  float: right;
+  font-weight: 400;
+  color: #0000008a;
+  font-size: 15px;
+}
+.total {
+  margin-top: 0px;
+  font-size: 17px;
+  font-weight: 500;
+}
+.total > span {
+  margin: 0;
+
+  float: right;
+  font-size: 20px;
+  font-weight: 400;
+}
+.coupon_input {
+  display: flex;
+  flex-direction: column;
+}
+.coupon_input > input {
+  height: 35px;
+  padding-left: 5%;
+  border: 0.5px solid #00000059;
+}
+.coupon_input > button {
+  border: none;
+  color: #ffffffe8;
+  height: 35px;
+  background-color: rgb(56, 56, 56);
+}
+
+.cart_section {
+  width: 65%;
+  height: 75px;
+  background-color: rgb(248, 249, 250);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+.cart_section > button {
+  margin: 0 30px;
+  height: 35px;
+  border: none;
+  background-color: rgb(248, 249, 250);
+  font-size: 15px;
+  color: #000000b3;
+}
+.cart_section > button:last-child {
+  padding: 0 25px;
+  border: 1px solid black;
+}

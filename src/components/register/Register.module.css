@@ -1,0 +1,69 @@
+.register {
+  display: flex;
+  background-color: rgb(244, 245, 249);
+  justify-content: center;
+}
+
+.register_logo {
+  position: absolute;
+  width: 21%;
+  right: 10%;
+  top: 30%;
+}
+
+.form_register {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 500px;
+  filter: drop-shadow(0 0 10px rgba(0, 0, 0, 0.4));
+  border-radius: 10px;
+  background-color: white;
+  margin: 25px 0;
+}
+.form_register > h1 {
+  font-style: italic;
+  font-weight: 300;
+  margin: 60px;
+}
+.form_register > input {
+  width: 75%;
+  height: 60px;
+  padding-left: 30px;
+  border-bottom: 0px solid;
+  border-color: rgba(0, 0, 0, 0.2);
+}
+input[type="number"] {
+  border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+  -moz-appearance: textfield;
+}
+.form_login > input[type="password"] {
+  border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+input:focus-visible {
+  outline: none;
+}
+.form_register > button {
+  width: 82%;
+  height: 60px;
+  background-color: rgb(73, 73, 73);
+  color: white;
+  margin: 15px;
+  border: none;
+}
+.form_register > p {
+  margin: 30px 0 50px 0;
+  font-style: italic;
+  font-size: 18px;
+  color: rgba(0, 0, 0, 0.5);
+}
+.form_register > p > span {
+  color: rgb(98 107 252);
+  cursor: pointer;
+}

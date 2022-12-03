@@ -1,0 +1,28 @@
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  max-width: 80%;
+  margin: 0 auto;
+  font-style: italic;
+}
+.navbar > h2 {
+  font-weight: 400;
+}
+.navbar > ul {
+  padding-left: 0;
+  display: flex;
+  justify-content: space-between;
+  list-style-type: none;
+}
+
+.navbar > ul > li {
+  margin-left: 12px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+}
+
+.navbar-left > li:first-child {
+  color: #e8c375;
+}

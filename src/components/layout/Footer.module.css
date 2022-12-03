@@ -1,0 +1,31 @@
+.background-footer {
+  background-color: rgb(17, 17, 17);
+  width: 100%;
+}
+
+.footer {
+  max-width: 80%;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  color: white;
+  padding: 40px 0 60px 0;
+  font-style: italic;
+}
+.footer > div > h4 {
+  font-weight: 600;
+  margin-bottom: 15px;
+}
+.footer-column {
+  list-style-type: none;
+  padding-left: 0;
+}
+.footer-column > li {
+  margin-bottom: 5px;
+}
+.footer-column > li > a {
+  color: white;
+  text-decoration: none;
+  font-size: small;
+  font-weight: 100;
+}

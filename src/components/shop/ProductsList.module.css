@@ -1,0 +1,106 @@
+.products_list {
+  width: 75%;
+  margin-left: 30px;
+}
+
+.search-sort {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.search-sort > input {
+  height: 30px;
+  width: 230px;
+  margin-left: 5px;
+  padding-left: 15px;
+  border: 3px solid rgb(243, 245, 242);
+}
+.search-sort > input:focus-visible {
+  outline: none;
+}
+
+.search-sort > select {
+  height: 20px;
+  border-radius: 3px;
+  width: 150px;
+}
+.search-sort > select:focus-visible {
+  outline: none;
+}
+.product_list-items {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  width: 100%;
+  padding: 0;
+}
+.product_list-items > li > img {
+  width: 250px;
+  margin-bottom: 10px;
+}
+.product_list-items > li > img:hover {
+  opacity: 0.6;
+}
+.product_list-items > li {
+  width: 30%;
+
+  list-style-type: none;
+  text-align: center;
+  font-style: italic;
+  margin-bottom: 5px;
+  animation-name: itemProd;
+  animation-duration: 1.5s;
+}
+
+@keyframes itemProd {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.item_name {
+  font-weight: 500;
+  margin: 10px;
+}
+.item_price {
+  color: rgba(0, 0, 0, 0.7);
+  font-weight: 400;
+  margin: 0;
+}
+.couterList {
+  margin-top: 100px;
+  float: right;
+  font-style: normal;
+}
+.couterList > div {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  height: 30px;
+  text-align: center;
+  margin-right: 10px;
+}
+.couterList > div > button {
+  height: 100%;
+  background-color: white;
+  border-color: rgba(17, 18, 16, 0.2);
+}
+.counter {
+  height: 28px;
+  width: 30px;
+  color: white;
+  background-color: rgb(17, 18, 16);
+  padding-top: 2px;
+}
+.couterList > p {
+  margin-top: 0;
+  font-style: italic;
+  color: rgba(0, 0, 0, 0.7);
+}
+.counterNone {
+  display: none;
+}

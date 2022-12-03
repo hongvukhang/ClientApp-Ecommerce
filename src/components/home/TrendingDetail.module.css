@@ -1,0 +1,62 @@
+.detail-background {
+  width: 100%;
+  position: absolute;
+  left: 10px;
+  padding: 50px 0 125px 0;
+  background-color: rgba(0, 0, 0, 0.3);
+}
+.detail-form {
+  width: 64%;
+  margin: 0 auto;
+  border: 1px solid;
+  display: flex;
+  justify-content: space-between;
+  padding-bottom: 20px;
+  background-color: white;
+}
+.detail_img > img {
+  width: 27rem;
+}
+.detail {
+  padding-left: 25px;
+  font-style: italic;
+  width: 45%;
+}
+.detail > h2 {
+  margin-top: 50px;
+  margin-bottom: 0px;
+  font-weight: 500;
+  margin: 50px 0 0 20px;
+}
+
+.detail > p {
+  margin: 5px 0 5px 20px;
+}
+
+.detail > span {
+  margin-left: 20px;
+  display: block;
+  padding-right: 40px;
+  font-size: 0.95rem;
+  opacity: 0.75;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  -webkit-line-clamp: 11;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+}
+.btn__detail-close {
+  margin: 20px;
+  float: right;
+  background-color: white;
+  border: none;
+  cursor: pointer;
+}
+
+.btn__detail-view {
+  border: none;
+  width: 150px;
+  height: 35px;
+  background-color: rgba(0, 0, 0, 0.75);
+  color: white;
+}

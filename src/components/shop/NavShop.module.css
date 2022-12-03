@@ -1,0 +1,41 @@
+.navbar {
+  width: 25%;
+}
+.navbar > h2 {
+  font-weight: 500;
+}
+
+.navbar_list {
+  margin-left: 20px;
+}
+
+.navbar_list-apple {
+  background-color: black;
+  color: white;
+  font-weight: 400;
+  padding: 10px 20px;
+}
+
+.navbar_list-items {
+  list-style-type: none;
+  padding-left: 20px;
+  opacity: 0.8;
+}
+
+.navbar_list-items > li {
+  margin-bottom: 10px;
+}
+
+.navbar_list-items > li:hover {
+  color: rgb(198 153 87);
+}
+
+.navbar_list-title {
+  background-color: rgb(246, 249, 246);
+  font-weight: 500;
+  padding: 10px 20px;
+}
+
+.active {
+  color: rgb(198 153 87);
+}

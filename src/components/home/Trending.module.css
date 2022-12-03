@@ -1,0 +1,47 @@
+.trending_title > h4 {
+  font-weight: 400;
+  opacity: 0.5;
+  font-style: italic;
+  margin-bottom: 0;
+}
+.trending_title > h2 {
+  font-weight: 500;
+  font-style: italic;
+  margin-top: 0;
+}
+
+.trending_item {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  width: 100%;
+  padding: 0;
+}
+.trending_item > li > img {
+  width: 200px;
+  margin-bottom: 10px;
+}
+.trending_item > li > img:hover {
+  opacity: 0.6;
+}
+
+.trending_item > li {
+  width: 22%;
+  list-style-type: none;
+  text-align: center;
+  font-style: italic;
+  margin-bottom: 5px;
+}
+.name {
+  font-weight: 500;
+  margin: 10px;
+}
+.priceOpa {
+  color: rgba(0, 0, 0, 0.7);
+  font-weight: 400;
+  margin: 0;
+}
+.price {
+  font-weight: 400;
+  margin: 0;
+}
