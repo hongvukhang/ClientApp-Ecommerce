@@ -7,7 +7,6 @@ const TrendingDetail = (props) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const detail = props.detail;
-
   const hiddenHandler = () => {
     dispatch({ type: "HIDDEN_POPUP" });
   };
@@ -38,7 +37,7 @@ const TrendingDetail = (props) => {
           <button
             className={classes["btn__detail-view"]}
             onClick={() => {
-              navigate(`/detail/${detail.name}`);
+              navigate(`/detail/${detail._id}`);
               dispatch({ type: "HIDDEN_POPUP" });
               document.body.scrollTop = 0;
               document.documentElement.scrollTop = 0;

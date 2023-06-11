@@ -1,16 +1,20 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import classes from "./Related.module.css";
+import axios from "axios";
+
 const Related = (props) => {
   const navigate = useNavigate();
   const product = props.product;
   const [related, setRelated] = useState([]);
   useEffect(() => {
-    const rel = product.products.filter(
-      (prod) =>
-        prod.category === product.category && prod.name !== product.params
-    );
-    setRelated(rel);
+    axios
+      .get(
+        `http://localhost:5000/product/prodCate/${product.category}?id=${product.params}`
+      )
+      .then((res) => {
+        setRelated(res.data);
+      });
   }, [product]);
 
   return (
@@ -20,9 +24,9 @@ const Related = (props) => {
         {related.map((rel) => {
           return (
             <li
-              key={rel._id.$oid}
+              key={rel._id}
               onClick={() => {
-                navigate(`/detail/${rel.name}`);
+                navigate(`/detail/${rel._id}`);
                 document.body.scrollTop = 0;
                 document.documentElement.scrollTop = 0;
               }}

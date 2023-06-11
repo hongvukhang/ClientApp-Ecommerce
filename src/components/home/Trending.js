@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import classes from "./Trending.module.css";
-
+import axios from "axios";
 import TrendingDetail from "./TrendingDetail";
 
 const Trending = () => {
@@ -17,26 +17,24 @@ const Trending = () => {
     return `${milion}.${thousand}.000 VND`;
   };
 
-  const productFetch = async () => {
-    try {
-      const respone = await fetch(
-        "https://firebasestorage.googleapis.com/v0/b/funix-subtitle.appspot.com/o/Boutique_products.json?alt=media&token=dc67a5ea-e3e0-479e-9eaf-5e01bcd09c74"
-      );
-      const data = await respone.json();
-      const loadProducts = [];
-      data.map((res) => {
-        return loadProducts.push({
-          ...res,
-          price: priceInit(res.price),
-        });
-      });
-      setProduct(loadProducts);
-    } catch (error) {}
-  };
-
   useEffect(() => {
-    productFetch();
-  }, [productFetch]);
+    axios
+      .get("http://localhost:5000/product/products/all")
+      .then((res) => {
+        return res.data;
+      })
+      .then((res) => {
+        const loadProducts = [];
+        res.map((res) => {
+          return loadProducts.push({
+            ...res,
+            price: priceInit(res.price),
+          });
+        });
+        setProduct(loadProducts);
+      })
+      .catch((err) => console.log(err));
+  }, []);
 
   const toggleDetailHandler = (prod) => {
     dispatch({ type: "SHOW_POPUP" });
@@ -52,7 +50,7 @@ const Trending = () => {
       {isDetail && <TrendingDetail detail={productDetail} />}
       <ul className={classes["trending_item"]}>
         {product.map((prod) => (
-          <li key={prod._id.$oid}>
+          <li key={prod._id}>
             <img
               src={prod.img1}
               alt={prod.name}

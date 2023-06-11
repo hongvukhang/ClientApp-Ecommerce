@@ -1,82 +1,88 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import classes from "./Register.module.css";
-
+import axios from "axios";
+import Input from "../element/Input";
 const Register = () => {
   const navigate = useNavigate();
 
-  const [fullName, setFullName] = useState("");
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [phone, setPhone] = useState("");
-
   const [accounts, setAccounts] = useState([]);
+  const [error, setError] = useState({
+    fullName: false,
+    email: false,
+    password: false,
+    confirmPassword: false,
+    phone: false,
+  });
 
-  useEffect(() => {
-    const users = JSON.parse(localStorage.getItem("items"));
-    if (users) {
-      setAccounts(users);
+  const [data, setData] = useState({
+    fullName: "",
+    email: "",
+    password: "",
+    confirmPassword: "",
+    phone: "",
+  });
+
+  const dataChangeHandler = (e) => {
+    if (e.target.placeholder === "Full Name") {
+      setData(() => ({
+        ...data,
+        fullName: e.target.value,
+      }));
+      setError(() => ({ ...error, fullName: false }));
     }
-  }, []);
-
-  const nameChangHandler = (event) => {
-    setFullName(event.target.value);
-  };
-
-  const emailChangHandler = (event) => {
-    setEmail(event.target.value);
-  };
-
-  const passwordChangHandler = (event) => {
-    setPassword(event.target.value);
-  };
-
-  const phoneChangHandler = (event) => {
-    setPhone(event.target.value);
-  };
-
-  const validate = () => {
-    let valAcc = true;
-    if (fullName === "") {
-      alert("Full name empty");
-      return false;
-    } else if (email === "") {
-      alert("Email empty");
-      return false;
-    } else if (password === "" || password.length < 8) {
-      password === ""
-        ? alert("Password empty")
-        : alert("Password length must be greater than 8");
-      return false;
-    } else if (phone === "" || phone.length < 10) {
-      phone === ""
-        ? alert("Phone empty")
-        : alert("Phone length must be greater than 10");
-      return false;
-    } else {
-      accounts.map((acc) => {
-        if (acc.email === email) {
-          alert("Email already used");
-          valAcc = false;
-        }
-        return acc;
-      });
+    if (e.target.placeholder === "Password") {
+      setData(() => ({
+        ...data,
+        password: e.target.value,
+      }));
+      setError(() => ({ ...error, password: false }));
     }
-    return valAcc;
+    if (e.target.placeholder === "Confirm Password") {
+      setData(() => ({
+        ...data,
+        confirmPassword: e.target.value,
+      }));
+      setError(() => ({ ...error, confirmPassword: false }));
+    }
+    if (e.target.placeholder === "Phone") {
+      setData(() => ({
+        ...data,
+        phone: e.target.value,
+      }));
+      setError(() => ({ ...error, phone: false }));
+    }
+    if (e.target.placeholder === "Email") {
+      setData(() => ({
+        ...data,
+        email: e.target.value,
+      }));
+      setError(() => ({ ...error, email: false }));
+    }
   };
 
   const submitHandler = (event) => {
     event.preventDefault();
-    if (validate()) {
-      const addAccount = [
-        ...accounts,
-        { fullName, email, password, phone, cart: [] },
-      ];
-
-      localStorage.setItem("items", JSON.stringify(addAccount));
-
-      navigate("/login");
-    }
+    axios.post("http://localhost:5000/register", data).then((result) => {
+      console.log(result);
+      if (result.status === 203) {
+        const errorData = { ...error };
+        result.data.map((err) => {
+          if (err.path === "fullName") {
+            errorData.fullName = true;
+          } else if (err.path === "email") {
+            errorData.email = true;
+          } else if (err.path === "password") {
+            errorData.password = true;
+          } else if (err.path === "confirmPassword") {
+            errorData.confirmPassword = true;
+          } else if (err.path === "phone") {
+            errorData.phone = true;
+          }
+        });
+        setError(errorData);
+      }
+    });
   };
   return (
     <div className={classes.register}>
@@ -87,23 +93,39 @@ const Register = () => {
       />
       <form onSubmit={submitHandler} className={classes["form_register"]}>
         <h1>Sign Up</h1>
-        <input
-          onChange={nameChangHandler}
-          type="text"
-          placeholder="Full Name"
+        <Input
+          cb={dataChangeHandler}
+          type={"text"}
+          placeholder={"Full Name"}
+          err={error.fullName}
         />
-        <input onChange={emailChangHandler} type="email" placeholder="Email" />
-        <input
-          onChange={passwordChangHandler}
-          type="password"
-          placeholder="Password"
+        <Input
+          cb={dataChangeHandler}
+          type={"email"}
+          placeholder={"Email"}
+          err={error.email}
         />
-
-        <input onChange={phoneChangHandler} type="number" placeholder="Phone" />
-
+        <Input
+          cb={dataChangeHandler}
+          type={"password"}
+          placeholder={"Password"}
+          err={error.password}
+        />
+        <Input
+          cb={dataChangeHandler}
+          type={"password"}
+          placeholder={"Confirm Password"}
+          err={error.password ? error.password : error.confirmPassword}
+        />
+        <Input
+          cb={dataChangeHandler}
+          type={"number"}
+          placeholder={"Phone"}
+          err={error.phone}
+        />
         <button>SIGN UP</button>
         <p>
-          Login?{" "}
+          Login?
           <span
             onClick={() => {
               navigate("/login");

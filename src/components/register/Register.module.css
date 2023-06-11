@@ -26,29 +26,7 @@
   font-weight: 300;
   margin: 60px;
 }
-.form_register > input {
-  width: 75%;
-  height: 60px;
-  padding-left: 30px;
-  border-bottom: 0px solid;
-  border-color: rgba(0, 0, 0, 0.2);
-}
-input[type="number"] {
-  border-bottom: 1px solid rgba(0, 0, 0, 0.2);
-  -moz-appearance: textfield;
-}
-.form_login > input[type="password"] {
-  border-bottom: 1px solid rgba(0, 0, 0, 0.2);
-}
 
-input::-webkit-outer-spin-button,
-input::-webkit-inner-spin-button {
-  -webkit-appearance: none;
-  margin: 0;
-}
-input:focus-visible {
-  outline: none;
-}
 .form_register > button {
   width: 82%;
   height: 60px;

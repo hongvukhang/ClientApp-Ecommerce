@@ -4,6 +4,7 @@ import { useState, useEffect, useCallback } from "react";
 import DetailTop from "../detail/DetailTop";
 import Related from "../detail/Related";
 import Description from "../detail/Description";
+import axios from "axios";
 const DetailPage = () => {
   const params = useParams();
 
@@ -16,37 +17,17 @@ const DetailPage = () => {
     return `${milion}.${thousand}.000 VND`;
   };
 
-  const productFetch = useCallback(async () => {
-    try {
-      const respone = await fetch(
-        "https://firebasestorage.googleapis.com/v0/b/funix-subtitle.appspot.com/o/Boutique_products.json?alt=media&token=dc67a5ea-e3e0-479e-9eaf-5e01bcd09c74"
-      );
-      const data = await respone.json();
-
-      const loadProducts = [];
-
-      data.map((res) => {
-        if (res.name === params.id) {
-          return setParId({
-            ...res,
-            price: priceInit(res.price),
-            priceInit: res.price,
-          });
-        }
-        return loadProducts.push({
-          ...res,
-          price: priceInit(res.price),
-          priceInit: res.price,
-        });
-      });
-
-      setProduct(loadProducts);
-    } catch (error) {}
-  }, [params]);
-
   useEffect(() => {
-    productFetch();
-  }, [productFetch]);
+    axios
+      .get(`http://localhost:5000/product/products/${params.id}`)
+      .then((res) => {
+        return res.data[0];
+      })
+      .then((product) => {
+        const loadProduct = { ...product, price: priceInit(product.price) };
+        setParId(loadProduct);
+      });
+  }, [params]);
 
   return (
     <div>
@@ -54,7 +35,6 @@ const DetailPage = () => {
       <Description description={parId.long_desc} />
       <Related
         product={{
-          products: product,
           category: parId.category,
           params: params.id,
         }}
