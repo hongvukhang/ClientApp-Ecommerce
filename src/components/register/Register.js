@@ -6,7 +6,6 @@ import Input from "../element/Input";
 const Register = () => {
   const navigate = useNavigate();
 
-  const [accounts, setAccounts] = useState([]);
   const [error, setError] = useState({
     fullName: false,
     email: false,
@@ -63,8 +62,7 @@ const Register = () => {
 
   const submitHandler = (event) => {
     event.preventDefault();
-    axios.post("http://localhost:5000/register", data).then((result) => {
-      console.log(result);
+    axios.post("/register", data).then((result) => {
       if (result.status === 203) {
         const errorData = { ...error };
         result.data.map((err) => {
@@ -81,6 +79,9 @@ const Register = () => {
           }
         });
         setError(errorData);
+      }
+      if (result.status === 201) {
+        navigate("/login");
       }
     });
   };

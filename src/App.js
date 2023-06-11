@@ -1,5 +1,6 @@
 import { Routes, Route } from "react-router-dom";
 import React from "react";
+import axios from "axios";
 
 import "./App.css";
 import LiveChat from "./components/layout/LiveChat";
@@ -16,6 +17,7 @@ import RegisterPage from "./components/register/Register";
 import CheckoutPage from "./components/page/CheckoutPage";
 
 function App() {
+  axios.defaults.baseURL = "http://localhost:5000";
   return (
     <main>
       <Navbar />

@@ -1,69 +1,54 @@
 import { useState, useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import axios from "axios";
+
 import classes from "../register/Register.module.css";
+import Input from "../element/Input";
 
 const LoginPage = () => {
   const navigate = useNavigate();
 
   const dispatch = useDispatch();
 
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const [dataLogin, setDataLogin] = useState({ email: "", password: "" });
+  const [error, setError] = useState({ email: false, password: false });
   const [account, setAccount] = useState([]);
 
-  let curAcc;
-  useEffect(() => {
-    const userArr = JSON.parse(localStorage.getItem("items"));
-    if (userArr) {
-      setAccount(userArr);
+  const emailInputChangHandler = (e) => {
+    if (e.target.placeholder === "Email") {
+      setDataLogin(() => ({
+        ...dataLogin,
+        email: e.target.value,
+      }));
+      setError(() => ({ ...error, email: false }));
     }
-
-    const isLogin = JSON.parse(localStorage.getItem("current_account"));
-    if (isLogin) {
-      navigate("/");
-      dispatch({ type: "ON_LOGIN" });
+    if (e.target.placeholder === "Password") {
+      setDataLogin(() => ({
+        ...dataLogin,
+        password: e.target.value,
+      }));
+      setError(() => ({ ...error, password: false }));
     }
-  }, []);
-
-  const emailInputChangHandler = (event) => {
-    setEmail(event.target.value);
-  };
-  const passwordInputChangHandler = (event) => {
-    setPassword(event.target.value);
-  };
-
-  const validate = () => {
-    let valAcc = false;
-    if (email === "") {
-      alert("Email empty");
-      return false;
-    } else if (password === "") {
-      alert("Password empty");
-      return false;
-    } else {
-      account.map((acc) => {
-        if (acc.email === email && acc.password === password) {
-          curAcc = acc;
-
-          valAcc = true;
-        }
-      });
-      if (!valAcc) {
-        alert("Incorrect email and password");
-        setPassword("");
-      }
-    }
-    return valAcc;
   };
 
   const submitHandler = (event) => {
     event.preventDefault();
-    if (validate()) {
-      dispatch({ type: "ON_LOGIN" });
-      localStorage.setItem("current_account", JSON.stringify(curAcc));
-      navigate("/");
-    }
+
+    axios.post("/login", dataLogin).then((result) => {
+      if (result.status === 203) {
+        const errData = { ...error };
+        result.data.map((err) => {
+          if (err.path === "email") {
+            errData.email = true;
+          }
+          if (err.path === "password") {
+            errData.password = true;
+          }
+        });
+        setError(errData);
+      }
+    });
   };
 
   return (
@@ -78,17 +63,18 @@ const LoginPage = () => {
         className={`${classes["form_register"]} ${classes["form_login"]}`}
       >
         <h1>Sign In</h1>
-
-        <input
-          onChange={emailInputChangHandler}
-          type="email"
-          placeholder="Email"
+        <Input
+          cb={emailInputChangHandler}
+          type={"email"}
+          placeholder={"Email"}
+          err={error.email}
         />
-        <input
-          onChange={passwordInputChangHandler}
-          type="password"
-          placeholder="Password"
-          value={password}
+        <Input
+          last={true}
+          cb={emailInputChangHandler}
+          type={"password"}
+          placeholder={"Password"}
+          err={error.password}
         />
 
         <button>SIGN IN</button>
