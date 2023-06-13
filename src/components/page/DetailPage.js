@@ -8,7 +8,6 @@ import axios from "axios";
 const DetailPage = () => {
   const params = useParams();
 
-  const [product, setProduct] = useState([]);
   const [parId, setParId] = useState({});
 
   const priceInit = (price) => {
@@ -19,7 +18,7 @@ const DetailPage = () => {
 
   useEffect(() => {
     axios
-      .get(`http://localhost:5000/product/products/${params.id}`)
+      .get(`/product/products/${params.id}`)
       .then((res) => {
         return res.data[0];
       })

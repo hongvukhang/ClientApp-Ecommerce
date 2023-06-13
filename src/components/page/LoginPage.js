@@ -60,8 +60,12 @@ const LoginPage = () => {
           setError(errData);
         }
         if (result.status === 202) {
-          setCookie("login", true, { path: "/" });
-          setCookie("userName", dataLogin.email, { path: "/" });
+          setCookie("token", result.data.token, {
+            path: "/",
+            maxAge: 1200,
+          });
+          setCookie("userName", result.data.userName, { path: "/" });
+          setCookie("email", dataLogin.email, { path: "/" });
           navigate("/");
         }
       })
