@@ -1,6 +1,8 @@
 import { useState, useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import { useCookies } from "react-cookie";
+
 import axios from "axios";
 
 import classes from "../register/Register.module.css";
@@ -11,9 +13,16 @@ const LoginPage = () => {
 
   const dispatch = useDispatch();
 
+  const [cookie, setCookie] = useCookies(["user"]);
+
+  useEffect(() => {
+    if (cookie.login === "true") {
+      navigate("/");
+    }
+  }, [cookie]);
+
   const [dataLogin, setDataLogin] = useState({ email: "", password: "" });
   const [error, setError] = useState({ email: false, password: false });
-  const [account, setAccount] = useState([]);
 
   const emailInputChangHandler = (e) => {
     if (e.target.placeholder === "Email") {
@@ -35,20 +44,28 @@ const LoginPage = () => {
   const submitHandler = (event) => {
     event.preventDefault();
 
-    axios.post("/login", dataLogin).then((result) => {
-      if (result.status === 203) {
-        const errData = { ...error };
-        result.data.map((err) => {
-          if (err.path === "email") {
-            errData.email = true;
-          }
-          if (err.path === "password") {
-            errData.password = true;
-          }
-        });
-        setError(errData);
-      }
-    });
+    axios
+      .post("/login", dataLogin)
+      .then((result) => {
+        if (result.status === 203) {
+          const errData = { ...error };
+          result.data.map((err) => {
+            if (err.path === "email") {
+              errData.email = true;
+            }
+            if (err.path === "password") {
+              errData.password = true;
+            }
+          });
+          setError(errData);
+        }
+        if (result.status === 202) {
+          setCookie("login", true, { path: "/" });
+          setCookie("userName", dataLogin.email, { path: "/" });
+          navigate("/");
+        }
+      })
+      .catch((err) => console.log(err));
   };
 
   return (

@@ -1,34 +1,24 @@
 import classes from "./Navbar.module.css";
 import { FaShoppingCart, FaUser, FaCaretDown } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
-import { useState, useEffect } from "react";
 
-import { useSelector, useDispatch } from "react-redux";
-
+import { useCookies } from "react-cookie";
 const Navbar = () => {
   const navigate = useNavigate();
 
-  const isLogin = useSelector((state) => state.isLogin);
-  const dispatch = useDispatch();
+  const [cookies, setCookie, removeCookie] = useCookies();
 
-  const [login, setLogin] = useState();
-  useEffect(() => {
-    const user = JSON.parse(localStorage.getItem("current_account"));
-    if (user) {
-      setLogin(user);
-      dispatch({ type: "ON_LOGIN" });
-    }
-  }, [isLogin]);
-  const logoutHandler = () => {
-    localStorage.removeItem("current_account");
-    dispatch({ type: "ON_LOGOUT" });
-  };
   const goToCard = () => {
-    if (isLogin) {
+    if (cookies.login) {
       navigate("/cart");
     } else {
       navigate("/login");
     }
+  };
+
+  const logoutHandler = () => {
+    removeCookie("userName", { path: "/" });
+    removeCookie("login", { path: "/" });
   };
   return (
     <div className={classes.navbar}>
@@ -54,15 +44,15 @@ const Navbar = () => {
           <FaShoppingCart />
           Cart
         </li>
-        {isLogin && (
+        {cookies.login && (
           <li>
             <FaUser />
-            {login === undefined ? "Loading" : `${login.fullName} `}{" "}
+            {cookies.login && `${cookies.userName}`}
             <FaCaretDown />
             <span onClick={logoutHandler}>{`  (Logout)`}</span>
           </li>
         )}
-        {!isLogin && (
+        {!cookies.login && (
           <li
             onClick={() => {
               navigate("/login");
