@@ -16,6 +16,12 @@ const BillDetail = () => {
     address: "",
     cart: [],
   });
+  const [err, setErr] = useState({
+    fullName:false,
+    email:false,
+    phone:false,
+    address:false
+  })
   const [total, setTotal] = useState(0);
   const [isLoading, setIsLoading] = useState(false);
 
@@ -56,6 +62,11 @@ const BillDetail = () => {
       setUser(() => ({ ...user, phone: value }));
     }
   };
+
+// function validate information user
+const validate = ()=> {
+  
+}
 
   const submitPlaceOderHandler = (e) => {
     e.preventDefault();
