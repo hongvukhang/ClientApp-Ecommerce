@@ -6,14 +6,8 @@ import { useSelector } from "react-redux";
 
 import { useNavigate } from "react-router-dom";
 const CheckoutPage = () => {
-  const isLogin = useSelector((state) => state.isLogin);
   const navigate = useNavigate();
 
-  useEffect(() => {
-    if (!isLogin) {
-      navigate("/login");
-    }
-  }, []);
   return (
     <div>
       <CheckOutContent />

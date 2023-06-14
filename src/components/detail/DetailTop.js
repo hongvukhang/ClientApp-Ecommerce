@@ -35,7 +35,7 @@ const DetailTop = (props) => {
   //add item to card
   const addCartHandler = () => {
     const dataReq = {
-      isLogin: cookie.login,
+      token: cookie.token,
       email: cookie.email,
       prodId: parId._id,
       quantity: counter,

@@ -8,17 +8,10 @@ const Navbar = () => {
 
   const [cookies, setCookie, removeCookie] = useCookies();
 
-  const goToCard = () => {
-    if (cookies.login) {
-      navigate("/cart");
-    } else {
-      navigate("/login");
-    }
-  };
-
   const logoutHandler = () => {
+    removeCookie("token", { path: "/" });
     removeCookie("userName", { path: "/" });
-    removeCookie("login", { path: "/" });
+    removeCookie("email", { path: "/" });
   };
   return (
     <div className={classes.navbar}>
@@ -40,19 +33,23 @@ const Navbar = () => {
       </ul>
       <h2>BOUTIQUE</h2>
       <ul className={classes["navbar-right"]}>
-        <li onClick={goToCard}>
+        <li
+          onClick={() => {
+            navigate("/cart");
+          }}
+        >
           <FaShoppingCart />
           Cart
         </li>
-        {cookies.login && (
+        {cookies.token && (
           <li>
             <FaUser />
-            {cookies.login && `${cookies.userName}`}
+            {cookies.token && `${cookies.userName}`}
             <FaCaretDown />
             <span onClick={logoutHandler}>{`  (Logout)`}</span>
           </li>
         )}
-        {!cookies.login && (
+        {!cookies.token && (
           <li
             onClick={() => {
               navigate("/login");
