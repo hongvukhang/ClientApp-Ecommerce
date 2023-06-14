@@ -62,7 +62,6 @@ const LoginPage = () => {
         if (result.status === 202) {
           setCookie("token", result.data.token, {
             path: "/",
-            maxAge: 1200,
           });
           setCookie("userName", result.data.userName, { path: "/" });
           setCookie("email", dataLogin.email, { path: "/" });
