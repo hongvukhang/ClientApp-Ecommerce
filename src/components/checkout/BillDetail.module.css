@@ -23,12 +23,23 @@
   margin-bottom: 10px;
   color: #00000091;
 }
-.bill_form > input {
+.form_input:focus-visible,.form_input-error:focus-visible{
+  outline: none;
+}
+.form_input {
   border-color: #00000042;
   height: 2.5rem;
   padding-left: 20px;
   margin-bottom: 15px;
 }
+
+.form_input-error{
+  border-color: rgba(255, 0, 0, 0.541);
+  height: 2.5rem;
+  padding-left: 20px;
+  margin-bottom: 15px;
+}
+
 .bill_form > button {
   width: 20%;
   height: 40px;

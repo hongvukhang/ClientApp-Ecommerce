@@ -17,11 +17,11 @@ const BillDetail = () => {
     cart: [],
   });
   const [err, setErr] = useState({
-    fullName:false,
-    email:false,
-    phone:false,
-    address:false
-  })
+    fullName: false,
+    email: false,
+    phone: false,
+    address: true,
+  });
   const [total, setTotal] = useState(0);
   const [isLoading, setIsLoading] = useState(false);
 
@@ -50,28 +50,59 @@ const BillDetail = () => {
     const value = e.target.value;
     const id = e.target.id;
     if (id === "address") {
+      if (value === "") {
+        setErr(() => ({ ...err, address: true }));
+      } else {
+        setErr(() => ({ ...err, address: false }));
+      }
       setUser(() => ({ ...user, address: value }));
     }
     if (id === "email") {
+      if (!value.includes("@") || value === "") {
+        setErr(() => ({ ...err, email: true }));
+      } else {
+        setErr(() => ({ ...err, email: false }));
+      }
       setUser(() => ({ ...user, email: value }));
     }
     if (id === "name") {
-      setUser(() => ({ ...user, name: value }));
+      if (value === "") {
+        setErr(() => ({ ...err, fullName: true }));
+      } else {
+        setErr(() => ({ ...err, fullName: false }));
+      }
+      setUser(() => ({ ...user, fullName: value }));
     }
     if (id === "phone") {
+      if (
+        value === "" ||
+        !Number(value) ||
+        value.length !== 10 ||
+        value[0] !== "0"
+      ) {
+        setErr(() => ({ ...err, phone: true }));
+      } else {
+        setErr(() => ({ ...err, phone: false }));
+      }
       setUser(() => ({ ...user, phone: value }));
     }
   };
 
-// function validate information user
-const validate = ()=> {
-  
-}
-
   const submitPlaceOderHandler = (e) => {
     e.preventDefault();
-    // navigate("/");
-    console.log(user);
+    const arrErr = Object.values(err);
+    const isErr = arrErr.some((val) => val === true);
+    if (!isErr) {
+      const dataReq = {
+        token: cookie.token,
+        email: cookie.email,
+        user: user,
+      };
+
+      axios.post("/sendMailConfirm", dataReq).then((result) => {
+        console.log(result.data);
+      });
+    }
   };
 
   return (
@@ -87,6 +118,12 @@ const validate = ()=> {
             id="name"
             type="text"
             defaultValue={user.fullName}
+            className={
+              !err.fullName
+                ? classes["form_input"]
+                : classes["form_input-error"]
+            }
+            onChange={inforUserHandler}
             placeholder="Enter Your Full Name Here!"
           />
           <label>EMAIL:</label>
@@ -94,21 +131,32 @@ const validate = ()=> {
             id="email"
             type="email"
             defaultValue={user.email}
+            className={
+              !err.email ? classes["form_input"] : classes["form_input-error"]
+            }
+            onChange={inforUserHandler}
             placeholder="Enter Your Email Here!"
           />
           <label>PHONE NUMBER:</label>
           <input
             id="phone"
             type="text"
-            defaultValue={user.phone}
+            value={user.phone}
+            className={
+              !err.phone ? classes["form_input"] : classes["form_input-error"]
+            }
+            onChange={inforUserHandler}
             placeholder="Enter Your Phone Number Here!"
           />
           <label>ADDRESS:</label>
           <input
-            defaultValue={user.address}
-            onChange={inforUserHandler}
-            type="text"
             id="address"
+            type="text"
+            value={user.address}
+            onChange={inforUserHandler}
+            className={
+              !err.address ? classes["form_input"] : classes["form_input-error"]
+            }
             placeholder="Enter Your Address Here!"
           />
           <button>Place order</button>
