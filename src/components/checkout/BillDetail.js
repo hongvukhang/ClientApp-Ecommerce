@@ -6,6 +6,8 @@ import axios from "axios";
 import { useCookies } from "react-cookie";
 import classes from "./BillDetail.module.css";
 import { useNavigate } from "react-router-dom";
+
+import Alerts from "../../portal/Alerts";
 const BillDetail = () => {
   const navigate = useNavigate();
   const [cookie] = useCookies();
@@ -24,6 +26,19 @@ const BillDetail = () => {
   });
   const [total, setTotal] = useState(0);
   const [isLoading, setIsLoading] = useState(false);
+
+  const [notify, setNotify] = useState({
+    hidden: false,
+    status: false,
+    msg: "nothing",
+  });
+
+  const closeAlert = () => {
+    setNotify(() => ({ ...notify, hidden: false }));
+    if (notify.status) {
+      navigate("/");
+    }
+  };
 
   useEffect(() => {
     const dataReq = {
@@ -99,14 +114,42 @@ const BillDetail = () => {
         user: user,
       };
 
-      axios.post("/sendMailConfirm", dataReq).then((result) => {
-        console.log(result.data);
-      });
+      axios
+        .post("/sendMailConfirm", dataReq)
+        .then((result) => {
+          if (result.status === 201) {
+            setNotify(() => ({
+              hidden: true,
+              status: true,
+              msg: result.data,
+            }));
+          } else {
+            setNotify(() => ({
+              hidden: true,
+              status: false,
+              msg: result?.data?.err?.msg,
+            }));
+          }
+        })
+        .catch((err) => {
+          setNotify(() => ({
+            hidden: true,
+            status: false,
+            msg: err,
+          }));
+        });
     }
   };
 
   return (
     <div className={classes["bill_container"]}>
+      {notify.hidden && (
+        <Alerts
+          status={notify.status}
+          msg={notify.msg}
+          closeHandler={closeAlert}
+        />
+      )}
       <h1>BILLING DETAILS</h1>
       <div className={classes["bill_detail"]}>
         <form
@@ -159,7 +202,7 @@ const BillDetail = () => {
             }
             placeholder="Enter Your Address Here!"
           />
-          <button>Place order</button>
+          {!notify.status && <button>Place order</button>}
         </form>
         <div className={classes["bill_total"]}>
           <h1>YOUR ODER</h1>

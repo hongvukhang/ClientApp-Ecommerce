@@ -15,7 +15,7 @@ import CartPage from "./components/page/CartPage";
 import LoginPage from "./components/page/LoginPage";
 import RegisterPage from "./components/register/Register";
 import CheckoutPage from "./components/page/CheckoutPage";
-
+import HistoryPage from "./components/page/history/History";
 function App() {
   axios.defaults.baseURL = "http://localhost:5000";
   return (
@@ -31,6 +31,7 @@ function App() {
           <Route path="/login" element={<LoginPage />} />
           <Route path="/register" element={<RegisterPage />} />
           <Route path="/checkout" element={<CheckoutPage />} />
+          <Route path="/history" element={<HistoryPage />} />
           <Route path="*" element={<HomePage />} />
         </Routes>
       </Layout>
