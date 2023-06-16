@@ -1,5 +1,5 @@
-import { useState, useEffect, useCallback } from "react";
-
+import { useState, useEffect } from "react";
+import axios from "axios";
 import NavShop from "../shop/NavShop";
 import ProductsList from "../shop/ProductsList";
 import classes from "./ShopPage.module.css";
@@ -33,7 +33,22 @@ const ShopPage = () => {
   };
 
   useEffect(() => {
-    productFetch();
+    axios
+      .get("/product/products/all")
+      .then((res) => {
+        return res.data;
+      })
+      .then((res) => {
+        const loadProducts = [];
+        res.map((res) => {
+          return loadProducts.push({
+            ...res,
+            price: priceInit(res.price),
+          });
+        });
+        setProduct(loadProducts);
+      })
+      .catch((err) => console.log(err));
   }, [productFetch]);
 
   const searchingHandler = (item) => {

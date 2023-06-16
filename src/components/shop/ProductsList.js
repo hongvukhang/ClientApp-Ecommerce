@@ -69,7 +69,7 @@ const ProductsList = (props) => {
               <li
                 key={prod._id.$oid}
                 onClick={() => {
-                  navigate(`/detail/${prod.name}`);
+                  navigate(`/detail/${prod._id}`);
                   document.body.scrollTop = 0;
                   document.documentElement.scrollTop = 0;
                 }}

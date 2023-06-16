@@ -19,7 +19,7 @@ const Trending = () => {
 
   useEffect(() => {
     axios
-      .get("http://localhost:5000/product/products/all")
+      .get("/product/products/all")
       .then((res) => {
         return res.data;
       })

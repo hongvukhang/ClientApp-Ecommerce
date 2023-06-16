@@ -6,7 +6,7 @@ import style from "../../cart/CartContent.module.css";
 import classes from "./History.module.css";
 export default function History() {
   const [history, setHistory] = useState([]);
-
+  const [showTrans, setShowTrans] = useState({ isShow: false, id: "" });
   const [cookie] = useCookies();
 
   useEffect(() => {
@@ -15,10 +15,10 @@ export default function History() {
       email: cookie.email,
     };
     axios.post("/history", dataReq).then((his) => {
-      console.log(his);
       his.status === 200 && setHistory(his.data);
     });
   }, []);
+
   return (
     <div>
       <div className={style.content}>
@@ -54,52 +54,70 @@ export default function History() {
                 <td>{his.delivery}</td>
                 <td>{his.status}</td>
                 <td>
-                  <button className={classes["view-btn"]}>View</button>
+                  <button
+                    onClick={() => {
+                      if (showTrans.isShow && showTrans.id === his._id) {
+                        setShowTrans({ isShow: false, id: his._id });
+                      } else {
+                        setShowTrans({ isShow: true, id: his._id });
+                      }
+                    }}
+                    className={classes["view-btn"]}
+                  >
+                    View
+                  </button>
                 </td>
               </tr>
             ))}
           </tbody>
         </table>
       </div>
-      <div>
-        <div className={classes["information-user"]}>
-          <h1>INFORMATION ORDER</h1>
-          <p>ID User: {History[0]?.userId}</p>
-          <p>Full Name: {History[0]?.name}</p>
-          <p>Phone: {History[0]?.phone} </p>
-          <p>Address: {History[0]?.address}</p>
-          <p>Total:</p>
-        </div>
-        <div className={classes["table-container"]}>
-          <table>
-            <thead className={classes["table-header"]}>
-              <tr>
-                <td>ID PRODUCT</td>
-                <td>IMAGE</td>
-                <td>NAME</td>
-                <td>PRICE</td>
-                <td>COUNT</td>
-              </tr>
-            </thead>
-            <tbody>
-              {history.map((his) => (
-                <tr key={his._id} className={classes["table-body_item"]}>
-                  <td>{his._id}</td>
-                  <td>
-                    <img
-                      width="150px"
-                      src="https://firebasestorage.googleapis.com/v0/b/funix-way.appspot.com/o/xSeries%2FCCDN%2FReactJS%2FAssignment_Images%2FASM03_Resources%2Fiphone_13_4.jpeg?alt=media&token=dc72dde3-cfa4-4710-9493-ac2aa0ecf249"
-                    />
-                  </td>
-                  <td>{his.name}</td>
-                  <td>{his.phone}</td>
-                  <td>3</td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
-      </div>
+      {showTrans.isShow &&
+        history
+          .filter((trans) => trans._id.toString() === showTrans.id.toString())
+          .map((item) => {
+            return (
+              <div key={item._id}>
+                <div className={classes["information-user"]}>
+                  <h1>INFORMATION ORDER</h1>
+                  <p>ID User: {item.userId}</p>
+                  <p>Full Name: {item.name}</p>
+                  <p>Phone: {item.phone} </p>
+                  <p>Address: {item.address}</p>
+                  <p>Total: {item.total}</p>
+                </div>
+                <div className={classes["table-container"]}>
+                  <table>
+                    <thead className={classes["table-header"]}>
+                      <tr>
+                        <td>ID PRODUCT</td>
+                        <td>IMAGE</td>
+                        <td>NAME</td>
+                        <td>PRICE</td>
+                        <td>COUNT</td>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {item.product.map((product) => (
+                        <tr
+                          key={product.id}
+                          className={classes["table-body_item"]}
+                        >
+                          <td>{product.id}</td>
+                          <td>
+                            <img width="150px" src={product.img} />
+                          </td>
+                          <td>{product.name}</td>
+                          <td>{product.price}</td>
+                          <td>{product.quantity}</td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            );
+          })}
     </div>
   );
 }
