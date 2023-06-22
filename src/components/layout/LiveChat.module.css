@@ -92,9 +92,10 @@
   display: none;
 }
 .chat_content {
-  width: 75%;
+  width: 95%;
   height: 100%;
   padding-left: 10px;
+
 }
 .chat_content-customer {
   width: 100%;

@@ -1,5 +1,4 @@
 import { useState, useEffect } from "react";
-import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { useCookies } from "react-cookie";
 
@@ -11,15 +10,13 @@ import Input from "../element/Input";
 const LoginPage = () => {
   const navigate = useNavigate();
 
-  const dispatch = useDispatch();
-
-  const [cookie, setCookie] = useCookies(["user"]);
+  const [cookies, setCookie] = useCookies(["user"]);
 
   useEffect(() => {
-    if (cookie.login === "true") {
+    if (cookies.email) {
       navigate("/");
     }
-  }, [cookie]);
+  }, [cookies]);
 
   const [dataLogin, setDataLogin] = useState({ email: "", password: "" });
   const [error, setError] = useState({ email: false, password: false });
@@ -62,9 +59,16 @@ const LoginPage = () => {
         if (result.status === 202) {
           setCookie("token", result.data.token, {
             path: "/",
+            maxAge: 60 * 60 * 2,
           });
-          setCookie("userName", result.data.userName, { path: "/" });
-          setCookie("email", dataLogin.email, { path: "/" });
+          setCookie("userName", result.data.userName, {
+            path: "/",
+            maxAge: 60 * 60 * 2,
+          });
+          setCookie("email", dataLogin.email, {
+            path: "/",
+            maxAge: 60 * 60 * 2,
+          });
           navigate("/");
         }
       })

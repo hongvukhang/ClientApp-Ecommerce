@@ -1,7 +1,7 @@
 import { Routes, Route } from "react-router-dom";
 import React from "react";
 import axios from "axios";
-
+import { useCookies } from "react-cookie";
 import "./App.css";
 import LiveChat from "./components/layout/LiveChat";
 import Navbar from "./components/layout/Navbar";
@@ -17,11 +17,13 @@ import RegisterPage from "./components/register/Register";
 import CheckoutPage from "./components/page/CheckoutPage";
 import HistoryPage from "./components/page/history/History";
 function App() {
+  const [cookie] = useCookies();
   axios.defaults.baseURL = "http://localhost:5000";
   return (
     <main>
       <Navbar />
-      <LiveChat />
+      {cookie.token && <LiveChat />}
+
       <Layout>
         <Routes>
           <Route path="/" exact element={<HomePage />} />
