@@ -15,7 +15,7 @@ const LiveChat = () => {
   const [toggle, setToggle] = useState(false);
   const [cookies] = useCookies();
   const [msg, setMsg] = useState([]);
-
+  const [resetMessage, setResetMessage] = useState(0);
   const [msgSend, setMsgSend] = useState("");
   useEffect(() => {
     const dataReq = {
@@ -30,17 +30,20 @@ const LiveChat = () => {
         setMsg(res.data[0].msg);
       })
       .catch((err) => console.log(err));
-  }, []);
+  }, [resetMessage]);
   useEffect(() => {
+    const message = [...msg];
     const socket = openSocket("https://web-ecommerce-xzk6.onrender.com/");
     socket.on("msg", (data) => {
-      const message = [...msg];
-      message.push({
-        _id: Math.random(),
-        message: data.msg.msg,
-        sender: data.msg.sender,
-      });
-      setMsg(message);
+      // console.log(data);
+      // console.log(msg);
+      // message.push({
+      //   _id: Math.random(),
+      //   message: data.msg.msg,
+      //   sender: data.msg.sender,
+      // });
+      // setMsg(message);
+      setResetMessage(() => (resetMessage === 0 ? 1 : 0));
     });
   });
 
