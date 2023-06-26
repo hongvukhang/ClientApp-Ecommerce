@@ -32,7 +32,7 @@ const LiveChat = () => {
       .catch((err) => console.log(err));
   }, []);
   useEffect(() => {
-    const socket = openSocket("http://localhost:5000");
+    const socket = openSocket("https://web-ecommerce-xzk6.onrender.com/");
     socket.on("msg", (data) => {
       const message = [...msg];
       message.push({

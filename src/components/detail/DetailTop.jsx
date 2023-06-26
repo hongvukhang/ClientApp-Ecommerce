@@ -6,17 +6,18 @@ import { FaCaretLeft, FaCaretRight } from "react-icons/fa";
 import style from "./DetailTop.module.css";
 
 import axios from "axios";
-import Alerts from "../alert/Alerts";
 
+import Alerts from "../../portal/Alerts";
 const DetailTop = (props) => {
   const navigate = useNavigate();
   const [cookie] = useCookies();
 
   const parId = props.detail;
+
   const [imgItem, setImgItem] = useState(parId.img1);
   const [counter, setCounter] = useState(1);
 
-  const [notify, setNotify] = useState("");
+  const [alert, setAlert] = useState({ isHidden: false, status: "", msg: "" });
 
   //increment quantity
   const increHandler = () => {
@@ -47,15 +48,32 @@ const DetailTop = (props) => {
         if (result.status === 203) {
           return navigate("/login");
         }
-        setNotify("Success");
+        if (result.status === 200) {
+          setAlert({
+            isHidden: true,
+            status: false,
+            msg: "The product is not enough or out of stock",
+          });
+        }
+        if (result.status === 201) {
+          setAlert({
+            isHidden: true,
+            status: true,
+            msg: "Add to cart success",
+          });
+        }
       })
       .catch((err) => {
-        setNotify("Error");
+        setAlert({
+          isHidden: true,
+          status: false,
+          msg: "Something wrong!",
+        });
       });
   };
 
-  const closeAlertHandler = (alert) => {
-    setNotify(alert);
+  const closeAlertHandler = () => {
+    setAlert({ isHidden: false, status: "", msg: "" });
   };
 
   return (
@@ -117,6 +135,9 @@ const DetailTop = (props) => {
           <h3>
             CATEGORY: <span>{parId.category}</span>
           </h3>
+          <h3>
+            The remaining product: <span>{parId.amount}</span>
+          </h3>
           <div className={style["item_quantity"]}>
             <h4>QUANTITY</h4>
             <div>
@@ -134,7 +155,13 @@ const DetailTop = (props) => {
           </div>
         </div>
       </div>
-      {notify && <Alerts status={notify} close={closeAlertHandler} />}
+      {alert.isHidden && (
+        <Alerts
+          status={alert.status}
+          msg={alert.msg}
+          closeHandler={closeAlertHandler}
+        />
+      )}
     </>
   );
 };

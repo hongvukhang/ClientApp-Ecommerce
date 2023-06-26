@@ -1,4 +1,5 @@
 .box_message {
+  z-index: 3;
   position: fixed;
   right: 20px;
   bottom: 25px;

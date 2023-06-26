@@ -18,7 +18,7 @@ import CheckoutPage from "./components/page/CheckoutPage";
 import HistoryPage from "./components/page/history/History";
 function App() {
   const [cookie] = useCookies();
-  axios.defaults.baseURL = "http://localhost:5000";
+  axios.defaults.baseURL = "https://web-ecommerce-xzk6.onrender.com";
   return (
     <main>
       <Navbar />

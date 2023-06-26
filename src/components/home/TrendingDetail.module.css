@@ -5,6 +5,7 @@
   top: 0px;
   padding: 50px 0 125px 0;
   background-color: rgba(0, 0, 0, 0.3);
+  z-index: 2;
 }
 .detail-form {
   width: 64%;
