@@ -32,17 +32,8 @@ const LiveChat = () => {
       .catch((err) => console.log(err));
   }, [resetMessage]);
   useEffect(() => {
-    const message = [...msg];
     const socket = openSocket("https://web-ecommerce-xzk6.onrender.com/");
     socket.on("msg", (data) => {
-      // console.log(data);
-      // console.log(msg);
-      // message.push({
-      //   _id: Math.random(),
-      //   message: data.msg.msg,
-      //   sender: data.msg.sender,
-      // });
-      // setMsg(message);
       setResetMessage(() => (resetMessage === 0 ? 1 : 0));
     });
   });

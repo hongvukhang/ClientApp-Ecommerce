@@ -9,9 +9,7 @@ const Related = (props) => {
   const [related, setRelated] = useState([]);
   useEffect(() => {
     axios
-      .get(
-        `http://localhost:5000/product/prodCate/${product.category}?id=${product.params}`
-      )
+      .get(`/product/prodCate/${product.category}?id=${product.params}`)
       .then((res) => {
         setRelated(res.data);
       });
