@@ -122,11 +122,9 @@ const DetailTop = (props) => {
               />
             </li>
           </ul>
-          <img
-            className={style["detail_img"]}
-            src={imgItem ? imgItem : parId.img1}
-            alt="list_img"
-          />
+          <div className={style["detail_img"]}>
+            <img src={imgItem ? imgItem : parId.img1} alt="list_img" />
+          </div>
         </div>
         <div className={style["detail_top-right"]}>
           <h1>{parId.name}</h1>

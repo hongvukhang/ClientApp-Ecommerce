@@ -10,11 +10,12 @@
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
+  flex-wrap: wrap;
 }
 
 .cart_list {
   display: block;
-  width: 65%;
+  flex: 3;
 }
 .cart_list > tbody,
 .cart_list > thead {
@@ -71,9 +72,10 @@
 }
 
 .cart_total {
-  width: 24%;
+  flex: 1;
   padding: 45px;
   background-color: rgb(248, 249, 250);
+  margin-left: 10px;
 }
 .cart_total > h1 {
   margin: 0;
@@ -96,6 +98,7 @@
   margin-top: 0px;
   font-size: 17px;
   font-weight: 500;
+  margin-bottom: 30px;
 }
 .total > span {
   margin: 0;
@@ -108,12 +111,12 @@
   display: flex;
   flex-direction: column;
 }
-.coupon_input > input {
+.coupon_input input {
   height: 35px;
   padding-left: 5%;
   border: 0.5px solid #00000059;
 }
-.coupon_input > button {
+.coupon_input button {
   border: none;
   color: #ffffffe8;
   height: 35px;
@@ -121,7 +124,7 @@
 }
 
 .cart_section {
-  width: 65%;
+  width: 100%;
   height: 75px;
   background-color: rgb(248, 249, 250);
   display: flex;

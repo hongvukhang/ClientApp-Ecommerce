@@ -8,11 +8,12 @@ const Categories = () => {
         <h3>BROWSE OUR CATEGORIES</h3>
       </div>
       <div className={classes["cate_list"]}>
-        <div className={classes["cate_item"]}>
+        {/* <div className={classes["cate_item"]}>
           <img
             src={process.env.PUBLIC_URL + "/listItem/iphone.png"}
             alt="iphone"
           />
+
           <img src={process.env.PUBLIC_URL + "/listItem/mac.png"} alt="mac" />
         </div>
         <div className={classes["cate_item"]}>
@@ -25,6 +26,36 @@ const Categories = () => {
             src={process.env.PUBLIC_URL + "/listItem/airpods.png"}
             alt="airpods"
           />
+        </div> */}
+        <div className={classes.test}>
+          <div className={classes["test-items"]}>
+            <img
+              src={process.env.PUBLIC_URL + "/listItem/ipad.png"}
+              alt="ipad"
+            />
+          </div>
+          <div className={classes["test-items"]}>
+            <img
+              src={process.env.PUBLIC_URL + "/listItem/watch.png"}
+              alt="watch"
+            />
+          </div>
+          <div className={classes["test-items"]}>
+            <img
+              src={process.env.PUBLIC_URL + "/listItem/airpods.png"}
+              alt="airpods"
+            />
+          </div>
+          <div className={classes["test-items"]}>
+            <img
+              src={process.env.PUBLIC_URL + "/listItem/iphone.png"}
+              alt="iphone"
+            />
+          </div>
+
+          <div className={classes["test-items"]}>
+            <img src={process.env.PUBLIC_URL + "/listItem/mac.png"} alt="mac" />
+          </div>
         </div>
       </div>
     </div>

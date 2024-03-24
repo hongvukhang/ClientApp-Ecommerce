@@ -2,7 +2,7 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  max-width: 80%;
+  width: 80%;
   margin: 0 auto;
   font-style: italic;
 }
@@ -25,4 +25,9 @@
 
 .navbar-left > li:first-child {
   color: #e8c375;
+}
+@media only screen and (max-width: 600px) {
+  .navbar {
+    width: 95%;
+  }
 }

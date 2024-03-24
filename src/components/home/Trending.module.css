@@ -17,16 +17,19 @@
   width: 100%;
   padding: 0;
 }
-.trending_item > li > img {
+.trending_item img {
   width: 200px;
   margin-bottom: 10px;
+  height: 200px;
+  object-fit: contain;
 }
-.trending_item > li > img:hover {
+.trending_item img:hover {
   opacity: 0.6;
 }
 
 .trending_item > li {
   width: 22%;
+  min-width: 200px;
   list-style-type: none;
   text-align: center;
   font-style: italic;
@@ -44,4 +47,16 @@
 .price {
   font-weight: 400;
   margin: 0;
+}
+@media only screen and (max-width: 600px) {
+  .trending_item > li {
+    min-width: 100px;
+  }
+  .trending_item img {
+    width: 100px;
+    height: 100px;
+  }
+  .trending_item > ul {
+    font-size: 10px;
+  }
 }

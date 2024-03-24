@@ -28,3 +28,8 @@
 .banner_logo {
   width: 250px;
 }
+@media only screen and (max-width: 600px) {
+  .banner_logo {
+    display: none;
+  }
+}

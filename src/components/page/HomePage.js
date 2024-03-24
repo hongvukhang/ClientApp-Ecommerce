@@ -7,7 +7,6 @@ const HomePage = () => {
   return (
     <div>
       <Banner />
-
       <Categories />
       <Trending />
       <OtherInformation />

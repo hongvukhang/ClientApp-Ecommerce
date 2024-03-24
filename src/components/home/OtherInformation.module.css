@@ -56,3 +56,11 @@
   width: 23%;
   height: 100%;
 }
+@media only screen and (max-width: 600px) {
+  .infor_input {
+    flex-direction: column;
+  }
+  .infor_input-submit {
+    width: 95%;
+  }
+}

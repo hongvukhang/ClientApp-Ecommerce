@@ -20,7 +20,7 @@ function App() {
   const [cookie] = useCookies();
   axios.defaults.baseURL = "https://web-ecommerce-xzk6.onrender.com";
   return (
-    <main>
+    <>
       <Navbar />
       {cookie.token && <LiveChat />}
 
@@ -38,7 +38,7 @@ function App() {
         </Routes>
       </Layout>
       <Footer />
-    </main>
+    </>
   );
 }
 
